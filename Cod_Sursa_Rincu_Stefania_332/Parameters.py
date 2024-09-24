@@ -6,15 +6,20 @@ class Parameters:
         self.base_dir = './'
         
         # Paths for the training (positive and negative examples) and test images
-        self.dir_pos_examples = os.path.join(self.base_dir, 'antrenare/exemplePozitive64')  # Path for positive training examples (64x64 pixel images)
-        self.dir_neg_examples = os.path.join(self.base_dir, 'antrenare/exempleNegative64')  # Path for negative training examples (64x64 pixel images)
-        self.dir_test_examples = os.path.join(self.base_dir, 'testare/testare')  # Path for test images
-        self.path_annotations = os.path.join(self.base_dir, 'ground-truth-test') # Path to the annotation file for test images
-        
+        self.dir_pos_examples = os.path.join(self.base_dir, 'data/antrenare/exemplePozitive64')  # Path for positive training examples (64x64 pixel images)
+        self.dir_neg_examples = os.path.join(self.base_dir, 'data/antrenare/exempleNegative64')  # Path for negative training examples (64x64 pixel images)
+        self.dir_test_examples = os.path.join(self.base_dir, 'data/testare/testare')  # Path for test images
+        # self.dir_test_examples = os.path.join(self.base_dir, 'data/validare/validare')  # Path for validation images
+        self.path_annotations = os.path.join(self.base_dir, 'data/testare/ground-truth-test') # Path to the correct solution files for test dataset in order to test the performance of the algorithm
+        # self.path_annotations = os.path.join(self.base_dir, 'data/validare/ground-truth-validare') # Path to the correct solution files for validation dataset in order to test the performance of the algorithm
+
         # Path for saving files
         self.dir_save_files = './fisiereSalvate'  # Relative path for saving files
-        self.dir_sol_task1_folder = 'evaluare/fisiere_solutie/332_Rincu_Stefania/task1_test2/'  # Directory for solution files for task 1
-        self.dir_sol_task2_folder = 'evaluare/fisiere_solutie/332_Rincu_Stefania/task2_test2/'  # Directory for solution files for task 2
+        self.dir_sol_task1_folder = 'evaluare/fisiere_solutie/332_Rincu_Stefania/task1_test/'  # Directory for solution files for task 1 for test dataset
+        self.dir_sol_task2_folder = 'evaluare/fisiere_solutie/332_Rincu_Stefania/task2_test/'  # Directory for solution files for task 2 for test dataset
+
+        # self.dir_sol_task1_folder = 'evaluare/fisiere_solutie/332_Rincu_Stefania/task1_validare/'  # Directory for solution files for task 1 for validation dataset
+        # self.dir_sol_task2_folder = 'evaluare/fisiere_solutie/332_Rincu_Stefania/task2_validare/'  # Directory for solution files for task 2 for validation dataset
         
         # Ensure the save directory exists; if not, create it
         if not os.path.exists(self.dir_save_files):

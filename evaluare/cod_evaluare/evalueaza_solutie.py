@@ -171,11 +171,12 @@ verbose = 0
 
 #change this on your machine
 solution_path_root = "./evaluare/fisiere_solutie/332_Rincu_Stefania/"
-ground_truth_path_root = "./ground-truth-test/"
-
+ground_truth_path_root = "./data/test/ground-truth-test/" # Path to the correct solution files for test dataset in order to test the performance of the algorithm
+# ground_truth_path_root = "./data/validare/ground-truth-validare/" # Path to the correct solution files for validation dataset in order to test the performance of the algorithm
 
 #task1
-solution_path = solution_path_root + "task1_test2/"
+solution_path = solution_path_root + "task1_test/" # Solution path for task 1 on test dataset
+# solution_path = solution_path_root + "task1_validare/" # Solution path for task 1 on validation dataset
 ground_truth_path = ground_truth_path_root + "task1_gt_testare.txt"
 print(solution_path)
 evaluate_results_task1(solution_path, ground_truth_path, verbose)
@@ -183,9 +184,8 @@ evaluate_results_task1(solution_path, ground_truth_path, verbose)
 #pdb.set_trace()
 
 #task2
-solution_path = solution_path_root + "task2_test2/"
-
-
+solution_path = solution_path_root + "task2_test/" # Solution path for task 2 on test dataset
+# solution_path = solution_path_root + "task2_validare/" # Solution path for task 2 on validation dataset
 ground_truth_path = ground_truth_path_root + "task2_fred_gt_testare.txt"
 evaluate_results_task2(solution_path, ground_truth_path, "fred", verbose)
 

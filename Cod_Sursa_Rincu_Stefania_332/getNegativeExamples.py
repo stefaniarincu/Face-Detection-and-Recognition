@@ -3,9 +3,9 @@ import cv2 as cv
 import numpy as np
 
 # The source path for the training images, from which negative examples will be extracted
-input_path = "./antrenare/"
+input_path = "./data/antrenare/"
 # Path where the negative examples will be stored (image dimension: 64x64)
-output_path = "./antrenare/exempleNegative64"
+output_path = "./data/antrenare/exempleNegative64"
 
 # Check if the directory for negative examples exists; if not, create it
 if not os.path.exists(output_path):
