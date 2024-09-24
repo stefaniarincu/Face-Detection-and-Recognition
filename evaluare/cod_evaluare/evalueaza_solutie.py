@@ -171,7 +171,7 @@ verbose = 0
 
 #change this on your machine
 solution_path_root = "./evaluare/fisiere_solutie/332_Rincu_Stefania/"
-ground_truth_path_root = "./data/test/ground-truth-test/" # Path to the correct solution files for test dataset in order to test the performance of the algorithm
+ground_truth_path_root = "./data/testare/ground-truth-test/" # Path to the correct solution files for test dataset in order to test the performance of the algorithm
 # ground_truth_path_root = "./data/validare/ground-truth-validare/" # Path to the correct solution files for validation dataset in order to test the performance of the algorithm
 
 #task1

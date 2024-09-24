@@ -147,7 +147,7 @@ class FacialRecognition:
     # Function that trains a MLP classifier for a given character
     def train_mlp_recognition_each(self, train_examples, train_labels, character):
         # Path to save the trained MLP classifier for the specified character
-        file_mlp_recognition = os.path.join(self.params.dir_save_files, f'mlp_recognition_{character}')
+        file_mlp_recognition = os.path.join(self.params.dir_save_models, f'mlp_recognition_{character}')
 
         # Initialize the MLP classifier 
         model = MLPClassifier(activation='relu', solver='adam', learning_rate='adaptive', max_iter=1000,
@@ -186,7 +186,7 @@ class FacialRecognition:
     # Function that loads the best MLP model for a given character
     def get_mlp_recognition_each(self, character):
         # Path to the saved MLP classifier for the specified character
-        file_mlp_recognition = os.path.join(self.params.dir_save_files, f'mlp_recognition_{character}')
+        file_mlp_recognition = os.path.join(self.params.dir_save_models, f'mlp_recognition_{character}')
 
         # Check if the model file exists
         if os.path.exists(file_mlp_recognition):

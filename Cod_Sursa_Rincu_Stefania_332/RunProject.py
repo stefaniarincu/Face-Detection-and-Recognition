@@ -96,7 +96,7 @@ if params.training:
                                                         'positiveExamplesDescriptors_Rec_' + str(params.dim_hog_cell) + '_' +
                                                         str(params.number_positive_examples_rec) + '.npy')      
         labels_path_recognition = os.path.join(params.dir_save_training_descr,
-                                             'positiveExamplesLabels_Rec' + str(params.dim_hog_cell) + '_' +
+                                             'positiveExamplesLabels_Rec_' + str(params.dim_hog_cell) + '_' +
                                              str(params.number_positive_examples_rec) + '.npy')
 
         # Check if positive descriptors for recognition already exist                           

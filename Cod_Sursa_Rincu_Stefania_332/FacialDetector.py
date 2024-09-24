@@ -100,7 +100,7 @@ class FacialDetector:
     # Function that trains the MLP model for the detection task
     def train_mlp_detection(self, training_examples, train_labels):
         # Path to save the trained MLP classifier for detection
-        file_mlp_detection = os.path.join(self.params.dir_save_files, 'mlp_detection_%d_%d' %
+        file_mlp_detection = os.path.join(self.params.dir_save_models, 'mlp_detection_%d_%d' %
                                            (self.params.number_negative_examples, self.params.number_positive_examples_det))
 
         # Initialize the MLP classifier for detection
@@ -129,7 +129,7 @@ class FacialDetector:
 
     # Function that loads the trained MLP model if it exists
     def get_mlp_detection(self):
-        file_mlp_detection = os.path.join(self.params.dir_save_files, 'mlp_detection_%d_%d' %
+        file_mlp_detection = os.path.join(self.params.dir_save_models, 'mlp_detection_%d_%d' %
                                            (self.params.number_negative_examples, self.params.number_positive_examples_det))
 
         if os.path.exists(file_mlp_detection):
