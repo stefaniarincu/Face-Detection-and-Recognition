@@ -30,7 +30,6 @@ class FacialDetector:
             print('Detection task -- Processing positive example number %d...' % cnt)
             cnt += 1
 
-            print(files[i])
             # Read image in grayscale
             img = cv.imread(files[i], cv.IMREAD_GRAYSCALE)
             # Get the image dimensions and calculate the center for rotation

@@ -5,7 +5,7 @@ import numpy as np
 # The source path for the training images, from which positive examples will be extracted
 input_path = "./data/antrenare/"
 # Path where the positive examples will be stored (image dimension: 64x64)
-path_positives = "./data/antrenare/exemplePozitive64/"
+path_positives = "./data/antrenare/positiveExamples64/"
 
 # Check if the directory for positive examples exists; if not, create it
 if not os.path.exists(path_positives):

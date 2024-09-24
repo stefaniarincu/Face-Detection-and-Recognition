@@ -38,8 +38,8 @@ facial_recognition: FacialRecognition = FacialRecognition(params)
 # This block is skipped when testing
 if params.training: 
     # Path to save/load negative feature descriptors
-    negative_features_path = os.path.join(params.dir_save_files,
-                                          'descriptoriExempleNegative_' + str(params.dim_hog_cell) + '_' +
+    negative_features_path = os.path.join(params.dir_save_training_descr,
+                                          'negativeExamplesDescriptors_' + str(params.dim_hog_cell) + '_' +
                                           str(params.number_negative_examples) + '.npy')
                                           
     # Check if negative descriptors already exist
@@ -60,10 +60,10 @@ if params.training:
         print("DETECTION TRAINING")
         
         # Path to save/load positive feature descriptors and labels for detection
-        positive_features_path_detection = os.path.join(params.dir_save_files,
-                                              'descriptoriExemplePozitive_' + str(params.dim_hog_cell) + '_' +
+        positive_features_path_detection = os.path.join(params.dir_save_training_descr,
+                                              'positiveExamplesDescriptors_' + str(params.dim_hog_cell) + '_' +
                                                         str(params.number_positive_examples_det) + '.npy')                     
-        labels_path_detection = os.path.join(params.dir_save_files, 'eticheteExemplePozitive_' + str(params.dim_hog_cell) + '_' +
+        labels_path_detection = os.path.join(params.dir_save_training_descr, 'positiveExamplesLabels_' + str(params.dim_hog_cell) + '_' +
                                              str(params.number_positive_examples_det) + '.npy')   
 
         # Check if positive descriptors for detection already exist                              
@@ -92,11 +92,11 @@ if params.training:
         print("RECOGNITION TRAINING")
         
         # Path to save/load positive feature descriptors and labels for recognition
-        positive_features_path_recognition = os.path.join(params.dir_save_files,
-                                                        'descriptoriExemplePozitive_Rec_' + str(params.dim_hog_cell) + '_' +
+        positive_features_path_recognition = os.path.join(params.dir_save_training_descr,
+                                                        'positiveExamplesDescriptors_Rec_' + str(params.dim_hog_cell) + '_' +
                                                         str(params.number_positive_examples_rec) + '.npy')      
-        labels_path_recognition = os.path.join(params.dir_save_files,
-                                             'eticheteExemplePozitive_Rec_' + str(params.dim_hog_cell) + '_' +
+        labels_path_recognition = os.path.join(params.dir_save_training_descr,
+                                             'positiveExamplesLabels_Rec' + str(params.dim_hog_cell) + '_' +
                                              str(params.number_positive_examples_rec) + '.npy')
 
         # Check if positive descriptors for recognition already exist                           
