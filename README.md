@@ -49,3 +49,35 @@ Before saving the positive examples, I applied the second color filter mentioned
 The set of negative examples was formed of **207906** images of size **64x64** that do not contain faces. The extraction process was done using the script [`getNegativeExamples.py`](Cod_Sursa_Rincu_Stefania_332/getNegativeExamples.py), by randomly selecting regions from the training images. 
 
 I **scaled** each image from the [`data/antrenare`](data/antrenare) directory to create a diverse dataset. For each scale, I randomly selected up to **40** negative examples. To ensure that the selected regions contained skin-like colors, I applied the first, more restrictive color filter described above. If the average value of the extracted patch after applying this filter exceeded a certain threshold, I checked if the patch **did not overlap with any detected faces** in the image and that its overlap with already extracted negative examples was minimal.
+
+## Determining Positive Feature Vectors
+
+In the `get_positive_descriptors` method, implemented in both [`FacialDetector.py`](Cod_Sursa_Rincu_Stefania_332/FacialDetector.py) and [`FacialRecognition.py`](Cod_Sursa_Rincu_Stefania_332/FacialRecognition.py), I generated the positive descriptors necessary for training classifiers specialized in facial detection and recognition. To expand the set of positive examples, in addition to **mirroring** the images (horizontal flip, which was used in the lab), I introduced two additional augmentation techniques: **rotation** and **translation** of the face images.
+
+In the final approach, I kept only **translations up, down, left, and right**, excluding diagonal movements. For each augmented image, I applied the **Histogram of Oriented Gradients (HOG)** algorithm to extract the relevant features.
+
+## Determining Negative Feature Vectors
+
+In the `get_negative_descriptors` method, implemented in [`FacialDetector.py`](Cod_Sursa_Rincu_Stefania_332/FacialDetector.py), I extracted the negative examples from the specified directory and computed their corresponding HOG descriptors. Unlike the positive examples, I did not apply any augmentation techniques to the negative examples.
+
+## Multi-scale Paradigm
+
+To address the variability in distance from the *camera* (foreground) and to handle cases with faces that are either closer or farther away, I defined a scaling vector with values between **1.5** and **0.4**, which was used to resize the original image. Using this approach, I created a pyramid of resized images, as illustrated in the image below. This technique improved the classifier’s ability to detect faces in various conditions and distances.
+
+<p align="center">
+  <img src="./readme_images/res_img_pyramid.png" width="450" alt="description" />
+</p>
+
+## Sliding Window
+
+To implement the **sliding window** approach for face detection in this project, I used a technique that progressively selects sections of the image with a **64x64** window size. To optimize the shape and size of the bounding boxes used for character faces detection, I calculated the **average height, width and aspect ratio** for all the faces extracted as positive examples. Based on this analysis, I added a scaling vector to resize the original image horizontally or vertically, which allowed me to simulate **rectangular bounding boxes** for better accuracy.
+
+## Face Detection Procedure
+
+### Step 1: Retrieving the Dataset Used for Model Training
+
+To train the detection classifier, I used the HOG feature vectors extracted as described in the sections [Determining Positive Feature Vectors](#determining-positive-feature-vectors) and [Determining Negative Feature Vectors](#determining-negative-feature-vectors).
+
+### Step 2: Training the Classifier
+
+To solve the detection task, I used an **MLPClassifier (Multi-Layer Perceptron Classifier)**, imported from the `sklearn.neural_network` library. I selected **ReLU (Rectified Linear Unit)** as the activation function, as it speeds up learning by removing negative values. As a solver, I chose **Adam** to adjust the weights. From previous experience, I knew that a constant learning rate does not favor the model’s learning, so I set it to **adaptive**. The training runs for a maximum of **1500** epochs, with early stopping if no improvement is seen after **5** consecutive epochs. The best model for detection is saved in the file [`mlp_detection_207906_207600.npy`](saved_files/models/mlp_detection_207906_207600.npy).
