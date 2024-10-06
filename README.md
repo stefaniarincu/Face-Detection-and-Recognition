@@ -28,9 +28,9 @@ To improve the face detection process and extract the examples used during train
 The first filter is applied in the **HSV** (Hue, Saturation, Value) space, with ranges of [0, 20] for hue, [20, 255] for saturation and [70, 255] for brightness, to emphasize regions in the original image with skin-like tones, specifically red, orange, and yellow. By targeting pixels with moderate to high saturation and brightness, this filter effectively adapts to various lighting conditions.
 
 <p align="center">
-  <img src="./readme_images/hsv_filter_A.png" width="200" alt="HSV filter highlighting only skin areas" />
-  <span style="display:inline-block; width: 80px;"></span>
-  <img src="./readme_images/hsv_filter_B.png" width="200" alt="HSV filter applied to an image with various skin tones" />
+  <img src="./readme_images/hsv_filter_A.png" width="270" alt="HSV filter highlighting only skin areas" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./readme_images/hsv_filter_B.png" width="270" alt="HSV filter applied to an image with various skin tones" />
 </p>
 <p align="center">
   <i>Regions extracted by applying the filter over the HSV space</i>
@@ -39,9 +39,9 @@ The first filter is applied in the **HSV** (Hue, Saturation, Value) space, with 
 The second filter is based on various studies on skin detection in images and employs both the RGB and HSV color spaces. Initially, the color channels (blue, green, red) are extracted to analyze their distribution, adapting skin region detection criteria for different lighting conditions based on insights from this article [this article](https://medium.com/swlh/human-skin-color-classification-using-the-threshold-classifier-rgb-ycbcr-hsv-python-code-d34d51febdf8). Thresholds were adjusted to align more closely with the training and validation images. In the second stage, a mask is defined in the HSV space, retaining pixels with a hue value below 50 or above 150.
 
 <p align="center">
-  <img src="./readme_images/rgb_hsv_filter_A.png" width="200" alt="RGB and HSV filter highlighting skin tones in image A" />
-  <span style="display:inline-block; width: 80px;"></span>
-  <img src="./readme_images/rgb_hsv_filter_B.png" width="200" alt="RGB and HSV filter highlighting skin tones in image B" />
+  <img src="./readme_images/rgb_hsv_filter_A.png" width="270" alt="RGB and HSV filter highlighting skin tones in image A" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./readme_images/rgb_hsv_filter_B.png" width="270" alt="RGB and HSV filter highlighting skin tones in image B" />
 </p>
 <p align="center">
   <i>Regions extracted by applying the filter over the RGB and HSV spaces</i>
@@ -61,7 +61,7 @@ To **label** each character from the positive examples and simplify the recognit
 - **Unknown - 4** (faces that do not correspond to one of the four main characters)
 
 <p align="center">
-  <img src="./readme_images/faces_renamed.jpeg" width="450" alt="faces renamed" />
+  <img src="./readme_images/faces_renamed.jpeg" width="500" alt="faces renamed" />
 </p>
 
 Before saving the positive examples, I applied the second color filter mentioned earlier to ensure the dataset retained specific properties. This filtering process eliminated some faces belonging to unknown characters. Additionally, I manualy removed several blurred face images to further refine the dataset. 
@@ -83,9 +83,9 @@ In the `get_positive_descriptors` method, implemented in both [`FacialDetector.p
 In the final approach, I kept only **translations up, down, left, and right**, excluding diagonal movements. For each augmented image, I applied the **Histogram of Oriented Gradients (HOG)** algorithm to extract the relevant features.
 
 <p align="center">
-  <img src="./readme_images/wilma.png" width="120" alt="wilma" />
-  <span style="display:inline-block; width: 80px;"></span>
-  <img src="./readme_images/wilma_hog.png" width="120" alt="HOG for wilma" />
+  <img src="./readme_images/wilma.png" width="185" alt="wilma" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./readme_images/wilma_hog.png" width="185" alt="HOG for wilma" />
 </p>
 <p align="center">
   <i>Visualization of the HOG descriptors associated with a certain image</i>
@@ -100,7 +100,7 @@ In the `get_negative_descriptors` method, implemented in [`FacialDetector.py`](C
 To address the variability in distance from the *camera* (foreground) and to handle cases with faces that are either closer or farther away, I defined a scaling vector with values between **1.5** and **0.4**, which was used to resize the original image. Using this approach, I created a pyramid of resized images, as illustrated in the image below. This technique improved the classifier’s ability to detect faces in various conditions and distances.
 
 <p align="center">
-  <img src="./readme_images/res_img_pyramid.png" width="450" alt="pyramid of resized images" />
+  <img src="./readme_images/res_img_pyramid.png" width="600" alt="pyramid of resized images" />
 </p>
 
 ## Sliding Window
@@ -108,7 +108,7 @@ To address the variability in distance from the *camera* (foreground) and to han
 To implement the **sliding window** approach for face detection in this project, I used a technique that progressively selects sections of the image with a **64x64** window size. To optimize the shape and size of the bounding boxes used for character faces detection, I calculated the **average height, width and aspect ratio** for all the faces extracted as positive examples. Based on this analysis, I added a scaling vector to resize the original image horizontally or vertically, which allowed me to simulate **rectangular bounding boxes** for better accuracy.
 
 <p align="center">
-  <img src="./readme_images/aspect_ratio.png" width="250" height="250" alt="pyramid of resized images" />
+  <img src="./readme_images/aspect_ratio.png" width="250" height="250" alt="aspect ration" />
 </p>
 
 ## Face Detection Procedure
