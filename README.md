@@ -28,9 +28,8 @@ To improve the face detection process and extract the examples used during train
 The first filter is applied in the **HSV** (Hue, Saturation, Value) space, with ranges of [0, 20] for hue, [20, 255] for saturation and [70, 255] for brightness, to emphasize regions in the original image with skin-like tones, specifically red, orange, and yellow. By targeting pixels with moderate to high saturation and brightness, this filter effectively adapts to various lighting conditions.
 
 <p align="center">
-  <img src="./readme_images/hsv_filter_A.png" width="270" alt="HSV filter highlighting only skin areas" />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="./readme_images/hsv_filter_B.png" width="270" alt="HSV filter applied to an image with various skin tones" />
+  <img src="./readme_images/hsv_filter_A.png" width="250" alt="HSV filter highlighting only skin areas" />
+  <img src="./readme_images/hsv_filter_B.png" width="250" alt="HSV filter applied to an image with various skin tones" />
 </p>
 <p align="center">
   <i>Regions extracted by applying the filter over the HSV space</i>
@@ -39,9 +38,8 @@ The first filter is applied in the **HSV** (Hue, Saturation, Value) space, with 
 The second filter is based on various studies on skin detection in images and employs both the RGB and HSV color spaces. Initially, the color channels (blue, green, red) are extracted to analyze their distribution, adapting skin region detection criteria for different lighting conditions based on insights from this article [this article](https://medium.com/swlh/human-skin-color-classification-using-the-threshold-classifier-rgb-ycbcr-hsv-python-code-d34d51febdf8). Thresholds were adjusted to align more closely with the training and validation images. In the second stage, a mask is defined in the HSV space, retaining pixels with a hue value below 50 or above 150.
 
 <p align="center">
-  <img src="./readme_images/rgb_hsv_filter_A.png" width="270" alt="RGB and HSV filter highlighting skin tones in image A" />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="./readme_images/rgb_hsv_filter_B.png" width="270" alt="RGB and HSV filter highlighting skin tones in image B" />
+  <img src="./readme_images/rgb_hsv_filter_A.png" width="245" alt="RGB and HSV filter highlighting skin tones in image A" />
+  <img src="./readme_images/rgb_hsv_filter_B.png" width="250" alt="RGB and HSV filter highlighting skin tones in image B" />
 </p>
 <p align="center">
   <i>Regions extracted by applying the filter over the RGB and HSV spaces</i>
@@ -108,7 +106,7 @@ To address the variability in distance from the *camera* (foreground) and to han
 To implement the **sliding window** approach for face detection in this project, I used a technique that progressively selects sections of the image with a **64x64** window size. To optimize the shape and size of the bounding boxes used for character faces detection, I calculated the **average height, width and aspect ratio** for all the faces extracted as positive examples. Based on this analysis, I added a scaling vector to resize the original image horizontally or vertically, which allowed me to simulate **rectangular bounding boxes** for better accuracy.
 
 <p align="center">
-  <img src="./readme_images/aspect_ratio.png" width="250" height="250" alt="aspect ration" />
+  <img src="./readme_images/aspect_ratio.png" width="250" height="250" alt="aspect ratio" />
 </p>
 
 ## Face Detection Procedure
@@ -152,3 +150,46 @@ In the `run_recognition` method, found in the [`FacialRecognition.py`](Cod_Sursa
 Using the scores (probabilities) returned by each classifier, I implemented a **weighted voting system**. This determines which character has the highest confidence score, taking multiple results into account. If all four models classify a descriptor as class 0, it means that the face is either unknown or part of the background.
 
 The final results are organized and stored separately for each character.
+
+## How to run
+**NOTE:** The algorithm is quite slow. It takes between 4 and 5 hours to perform detection and recognition on the 200 test images.
+
+To install all required libraries, you can find the Anaconda environment file in `fdr.yaml`. Simply download it, import it into Anaconda, and select it as the interpreter when running the project. 
+
+Alternatively, if you don't want to use Anaconda, you will need to manually install **numpy**, **scikit-learn**, **scikit-image**, **matplotlib** and **opencv**.
+
+Both Task 1 and Task 2 are run based on the same script: [`RunProject.py`](Cod_Sursa_Rincu_Stefania_332/RunProject.py).
+
+If you want to create and train new models, make sure that you have generated the positive and negative examples. Also, set the following parameters to **True**: `params.training`, `params.training_detection` and `params.training_recognition` (lines 26, 27 and 28 in `RunProject.py`). If you want to test the models on validation or test datasets, you can set `params.training` to **False**. To train only the detection or only the recognition models, adjust `params.training_detection` and `params.training_recognition` accordingly.
+
+### Project Structure
+I used the project structure implemented during the lab as a template. Inside the folder [`Cod_Sursa_Rincu_Stefania_332`](Cod_Sursa_Rincu_Stefania_332), I included the following scripts:
+- [`Parameters.py`](Cod_Sursa_Rincu_Stefania_332/Parameters.py) -> contains the paths to the used directories.
+- [`RunProject.py`](Cod_Sursa_Rincu_Stefania_332/RunProject.py) -> the equivalent of main.py, through which the entire project is executed.
+- [`FacialDetector.py`](Cod_Sursa_Rincu_Stefania_332/FacialDetector.py) -> contains the implementation of the method used for face detection.
+- [`FacialRecognition.py`](Cod_Sursa_Rincu_Stefania_332/FacialRecognition.py) -> contains the implementation of the method used for face recognition.
+- [`getNegativeExamples.py`](Cod_Sursa_Rincu_Stefania_332/getNegativeExamples.py) -> script in which I performed the extraction of negative examples (run it individually if you want to generate negative examples).
+- [`getPositiveExamples.py`](Cod_Sursa_Rincu_Stefania_332/getPositiveExamples.py) -> script in which I performed the extraction of positive examples (run it individually if you want to generate positive examples).
+
+### Saved Files
+In the `Parameters.py` script, I declared the paths to the directories where the necessary data is saved and from where it should be extracted. The models are saved in the [`saved_files/models`](saved_files/models) directory, which is uploaded together with the rest of the project. This folder should be opened. The classifiers are:
+- `mlp_detection_207906_207600.npy` - for detection
+- `mlp_recognition_0.npy`- recognition for Barney
+- `mlp_recognition_1.npy` - recognition for Betty
+- `mlp_recognition_2.npy` - recognition for Fred
+- `mlp_recognition_3.npy` - recognition for Wilma
+
+To retrieve the models and test their performance, the following paths from `Parameters.py` are used:
+- **self.base_dir** (line 6 - must be completed with the path to the base directory where the data is saved)
+- **self.dir_test_examples** (line 11 - comment it out and uncomment line 12 if you want to run for validation)
+- **self.path_annotations** (line 13 - comment it out and uncomment line 14 if you want to run for validation)
+- **self.dir_save_files** (line 17 - should not be modified; it contains the name of the directory where the models are saved)
+- **self.dir_save_training_descriptors** (line 18 - should not be modified; it contains the name of the directory where the descriptors used for training are saved. I did not include this folder in the project due to the large number of positive and negative examples used, which exceeded the size limit accepted by GitHub)
+- **self.dir_save_models** (line 19 - should not be modified; it contains the name of the directory where the models used for detection and recognition are saved)
+
+
+In the `Parameters.py` script, I declared the paths to the directories where I save the **.npy** files containing the detections, scores, and names of the images. The directories [`evaluare/fisiere_solutie/332_Rincu_Stefania/task1_test`](evaluare/fisiere_solutie/332_Rincu_Stefania/task1_test) and [`evaluare/fisiere_solutie/332_Rincu_Stefania/task2_test`](evaluare/fisiere_solutie/332_Rincu_Stefania/task2_test) are created automatically. These should appear in the editor where the project is run.  
+
+To save the results in **.npy** files, the following paths from `Parameters.py` are used:
+- **self.dir_sol_task1_folder** (line 20 - comment it out and uncomment line 23 if you want to run for validation)
+- **self.dir_sol_task2_folder** (line 21 - comment it out and uncomment line 24 if you want to run for validation)
