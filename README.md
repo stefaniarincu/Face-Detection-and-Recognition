@@ -151,6 +151,23 @@ Using the scores (probabilities) returned by each classifier, I implemented a **
 
 The final results are organized and stored separately for each character.
 
+## Results
+
+After running the trained models on the test dataset, the obtained performances are:
+
+<p align="center">
+  <img src="./readme_images/average_precision_all_faces.jpeg" width="300" alt="average precision all faces" />
+</p>
+
+<p align="center">
+  <img src="./readme_images/average_precision_barney.jpeg" width="300" alt="average precision barney" />
+  <img src="./readme_images/average_precision_betty.jpeg" width="300" alt="average precision betty" />
+  <br></br>
+  <img src="./readme_images/average_precision_fred.jpeg" width="300" alt="average precision fred" />
+  <img src="./readme_images/average_precision_wilma.jpeg" width="300" alt="average precision wilma" />
+</p>
+
+
 ## How to run
 **NOTE:** The algorithm is quite slow. It takes between 4 and 5 hours to perform detection and recognition on the 200 test images.
 
@@ -193,3 +210,5 @@ In the `Parameters.py` script, I declared the paths to the directories where I s
 To save the results in **.npy** files, the following paths from `Parameters.py` are used:
 - **self.dir_sol_task1_folder** (line 20 - comment it out and uncomment line 23 if you want to run for validation)
 - **self.dir_sol_task2_folder** (line 21 - comment it out and uncomment line 24 if you want to run for validation)
+
+To test the performances of the model, there is a script named `evalueaza_solutie.py` located in the [`evaluare/cod_evaluare`](evaluare/cod_evaluare) folder. This script compares the results presented in [`evaluare/fisiere_solutie/332_Rincu_Stefania`](evaluare/fisiere_solutie/332_Rincu_Stefania) with the ground truth provided with the datasets. For the test dataset, the ground truth files can be found in [`data/testare/ground-truth-test`](data/testare/ground-truth-test) and for validation in [`data/validare/ground-truth-validare`](data/validare/ground-truth-validare). These paths can be modified at lines 174 and 175 in `evalueaza_solutie.py`.

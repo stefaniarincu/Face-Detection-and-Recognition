@@ -81,7 +81,7 @@ def eval_detections(detections, scores, file_names, ground_truth_path):
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.title('All faces: average precision %.3f' % average_precision)
-    plt.savefig('precizie_medie_all_faces.png')
+    plt.savefig('average_precision_all_faces.png')
     plt.show()
 
 def eval_detections_character(detections, scores, file_names,ground_truth_path,character):
@@ -136,7 +136,7 @@ def eval_detections_character(detections, scores, file_names,ground_truth_path,c
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.title(character + ' faces: average precision %.3f' % average_precision)
-    plt.savefig('precizie_medie_' + character + '.png')
+    plt.savefig('average_precision_' + character + '.png')
     plt.show()
 
 def evaluate_results_task1(solution_path,ground_truth_path,verbose = 0):
